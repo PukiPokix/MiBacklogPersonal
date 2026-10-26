@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="REPLAY.exe — tu archivo personal de cultura pop." />
+    <title>Backlog AlboSleep</title>
+    <link rel="icon" type="image/png" href="https://static.wikia.nocookie.net/zenless-zone-zero/images/0/0a/Icon_Agents.png/revision/latest?cb=20240602213222">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <video id="page-background-video" class="page-background-video hidden" autoplay muted loop playsinline aria-hidden="true"></video>
+    <main id="app">
+      <section id="lock-screen" class="lock-screen">
+        <div class="lock-content">
+          <div class="lock-clock" id="lock-clock">16:40</div>
+          <div class="lock-profile">
+            <div class="lock-avatar" id="lock-profile-avatar">AV</div>
+            <div class="lock-welcome">Bienvenido de nuevo</div>
+            <div class="lock-profile-name" id="lock-profile-name">Alex Vega</div>
+          </div>
+          <div id="unlock-slider" class="unlock-slider" role="slider" tabindex="0" aria-label="Desliza para desbloquear" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span class="unlock-track-label">DESLIZA PARA DESBLOQUEAR</span>
+            <span class="unlock-track-arrows">› › ›</span>
+            <button id="unlock-handle" class="unlock-handle" type="button" aria-label="Control de desbloqueo">⌁</button>
+          </div>
+        </div>
+        <button id="lock-options-button" class="lock-options-button" type="button" aria-label="Abrir opciones" title="Opciones">⚙</button>
+      </section>
+
+      <section id="desktop" class="desktop hidden">
+        <header class="topbar">
+          <div class="brand-mark">CENTRO<span>/</span>DE GRAVEDAD<small>.EXE</small></div>
+          <div class="system-status"><span class="live-dot"></span> ARCHIVO EN LÍNEA <span class="divider"></span> <span id="desktop-time">16:40</span></div>
+          <div class="audio-controls"><button id="audio-mute" class="icon-button" type="button" title="Silenciar música">♫ <span>SONIDO</span></button><input id="audio-volume" type="range" min="0" max="1" step="0.01" value="0.6" aria-label="Volumen de la música" /><button id="audio-pause" class="icon-button" type="button" title="Pausar animación de fondo">Ⅱ <span>PAUSAR</span></button></div>
+          <button id="home-button" class="icon-button home-button" title="Volver al escritorio">⌂ <span>INICIO</span></button>
+          <button id="options-button" class="icon-button" type="button" title="Abrir opciones">⚙ <span>OPCIONES</span></button>
+          <button id="lock-button" class="icon-button" title="Bloquear sistema">↙ <span>BLOQUEAR</span></button>
+        </header>
+
+        <aside id="quick-options" class="quick-options hidden" aria-label="Opciones de la aplicación">
+          <div class="quick-options-heading"><div><div class="eyebrow">AJUSTES / CONTROL</div><h2>Opciones</h2></div><button id="close-options" class="ghost-button" type="button" aria-label="Cerrar opciones">×</button></div>
+          <div class="quick-options-scroll">
+            <section class="quick-section">
+              <span class="quick-label">SONIDO</span>
+              <div class="quick-inline"><button id="quick-audio-mute" class="ghost-button" type="button">SILENCIAR</button><input id="quick-audio-volume" type="range" min="0" max="1" step="0.01" value="0.6" aria-label="Volumen" /><button id="quick-audio-pause" class="ghost-button" type="button">PAUSAR ANIMACIÓN</button></div>
+            </section>
+            <section class="quick-section">
+              <span class="quick-label">TABLET / APARIENCIA</span>
+              <label>Color de interfaz<input id="quick-interface-color" type="color" value="#6bf4e7" /></label>
+              <label>Transparencia<input id="quick-tablet-opacity" type="range" min="0.55" max="1" step="0.01" value="1" /></label>
+              <label>Oscurecer fondo del escritorio<input id="quick-desktop-overlay" type="range" min="0" max="0.7" step="0.01" value="0.28" /><small>Mejora la visibilidad de los iconos y aplicaciones</small></label>
+              <label>Escala de la tablet<input id="quick-tablet-scale" type="range" min="0.75" max="1.25" step="0.01" value="1" /><small>Amplía o reduce la tablet completa</small></label>
+            </section>
+            <section class="quick-section">
+              <span class="quick-label">PANTALLA DE BLOQUEO</span>
+              <label>Fuente de los elementos de inicio
+                <select id="quick-lock-font">
+                  <option value="Space Grotesk">Space Grotesk</option>
+                  <option value="DM Mono">DM Mono</option>
+                  <option value="Georgia">Georgia</option>
+                  <option value="Arial">Arial</option>
+                </select>
+              </label>
+              <label>Color de la hora<input id="quick-lock-clock-color" type="color" value="#ffffff" /></label>
+              <label>Color de "Bienvenido de nuevo"<input id="quick-lock-welcome-color" type="color" value="#6bf4e7" /></label>
+              <label>Color del usuario<input id="quick-lock-name-color" type="color" value="#ffffff" /></label>
+            </section>
+            <section class="quick-section">
+              <span class="quick-label">ICONOS DE APLICACIONES</span>
+              <small class="quick-section-help">Usa una URL o selecciona una imagen. Se mantendrán dentro de un marco fijo.</small>
+              <label>Backlog<input id="quick-library-icon-url" type="url" placeholder="https://...imagen" /><input id="quick-library-icon-file" type="file" accept="image/*" /></label>
+              <label>Reseñas<input id="quick-manage-icon-url" type="url" placeholder="https://...imagen" /><input id="quick-manage-icon-file" type="file" accept="image/*" /></label>
+              <label>Perfiles<input id="quick-profiles-icon-url" type="url" placeholder="https://...imagen" /><input id="quick-profiles-icon-file" type="file" accept="image/*" /></label>
+              <button id="reset-app-icons" class="ghost-button" type="button">RESTABLECER ICONOS</button>
+            </section>
+            <section class="quick-section">
+              <span class="quick-label">IMÁGENES DE FONDO</span>
+              <label>Página<input id="quick-page-url" type="url" placeholder="https://...imagen o GIF" /></label>
+              <label>Vídeo de página<input id="quick-video-url" type="url" placeholder="https://...mp4" /></label>
+              <label>Pantalla de bloqueo<input id="quick-device-url" type="url" placeholder="https://...imagen" /></label>
+              <label>Escritorio de la app<input id="quick-desktop-url" type="url" placeholder="https://...imagen" /></label>
+              <label>Imagen local de página<input id="quick-page-file" type="file" accept="image/*,.gif" /></label>
+              <label>Vídeo local de página<input id="quick-video-file" type="file" accept="video/*" /></label>
+              <label>Imagen local de bloqueo<input id="quick-device-file" type="file" accept="image/*" /></label>
+              <label>Imagen local del escritorio<input id="quick-desktop-file" type="file" accept="image/*" /></label>
+            </section>
+            <section class="quick-section">
+              <span class="quick-label">FUENTES DE PORTADAS</span>
+              <label>Token de TMDB<input id="quick-tmdb-token" type="password" placeholder="Token de lectura" /></label>
+              <label>Clave de RAWG<input id="quick-rawg-key" type="password" placeholder="Clave de API" /></label>
+            </section>
+            <section class="quick-section">
+              <span class="quick-label">ARCHIVO DE ANILIST</span>
+              <label>Usuario de AniList<input id="quick-anilist-username" type="text" placeholder="Tu usuario de AniList" /></label>
+              <button id="quick-import-anilist" class="ghost-button" type="button">IMPORTAR LISTA ↗</button>
+              <span id="quick-anilist-status" class="field-hint" aria-live="polite"></span>
+            </section>
+            <div class="quick-actions"><button id="apply-quick-options" class="add-button" type="button">APLICAR OPCIONES ↗</button><button id="reset-quick-options" class="ghost-button" type="button">RESTABLECER FONDOS</button></div>
+          </div>
+        </aside>
+
+        <section id="desktop-home" class="desktop-home">
+          <div class="desktop-icons">
+            <button class="desktop-icon" data-open-app="library"><span class="app-icon library-icon" data-app-icon="library"><img alt="" /></span><strong>Backlog</strong><small></small></button>
+            <button class="desktop-icon" data-open-app="manage"><span class="app-icon review-icon" data-app-icon="manage"><img alt="" /></span><strong>Reseñas</strong><small></small></button>
+            <button class="desktop-icon" data-open-app="profiles"><span class="app-icon profile-icon" data-app-icon="profiles"><img alt="" /></span><strong>Perfiles</strong><small></small></button>
+          </div>
+          <div class="desktop-dock"><span class="dock-line"></span><span>3 APLICACIONES INSTALADAS</span><span class="dock-line"></span></div>
+        </section>
+
+        <div class="desktop-body">
+          <aside class="sidebar">
+            <button class="profile-chip" id="profile-chip" type="button" aria-label="Abrir mi perfil">
+              <div class="avatar" id="profile-avatar">A<span>V</span></div>
+              <div><strong id="profile-name">AlboSleep</strong><small></small></div>
+            </button>
+            <div class="side-label">APLICACIONES <span>03</span></div>
+            <nav class="app-nav">
+              <button class="nav-item active" data-view="library"><span class="nav-icon" data-app-icon="library"><img alt="" /></span><span><b>Biblioteca multimedia</b><small></small></span><i>01</i></button>
+              <button class="nav-item" data-view="manage"><span class="nav-icon" data-app-icon="manage"><img alt="" /></span><span><b>Gestor de reseñas</b><small></small></span><i>02</i></button>
+              <button class="nav-item" data-view="profiles"><span class="nav-icon" data-app-icon="profiles"><img alt="" /></span><span><b>Centro de perfil</b><small></small></span><i>03</i></button>
+            </nav>
+            <div class="sidebar-bottom"><span>v1.0.0</span><span>ALMACENAMIENTO LOCAL</span></div>
+          </aside>
+
+          <section class="workspace">
+            <div id="view-library" class="view">
+              <div class="view-heading">
+                <div><div class="eyebrow">01 / EL ARCHIVO</div><h1>ARCHIVO <br /><em>revisa tus listas</em></h1></div>
+                
+              </div>
+              <div class="stats-row">
+                <div class="stat-card"><span>TOTAL DE ENTRADAS</span><strong id="total-count">06</strong><i>↗</i></div>
+                <div class="stat-card accent"><span>ESTE AÑO</span><strong id="year-count">04</strong><i>✦</i></div>
+                <div class="stat-card"><span>VALORACIÓN MEDIA</span><strong id="avg-rating">8.3</strong><i>/10</i></div>
+                <div class="stat-card dark"><span>ÚLTIMO REGISTRO</span><strong id="last-logged">12 OCT</strong><i>2026</i></div>
+              </div>
+              <div class="toolbar">
+                <div class="filter-tabs">
+                  <button class="filter-tab active" data-filter="all">TODO</button>
+                  <button class="filter-tab" data-filter="game">VIDEOJUEGOS</button>
+                  <button class="filter-tab" data-filter="movie">PELÍCULAS</button>
+                  <button class="filter-tab" data-filter="anime">ANIME</button>
+                </div>
+                <button class="add-button" data-open-manager>+ NUEVA ENTRADA</button>
+              </div>
+              <div class="library-filters" aria-label="Filtros de biblioteca">
+                <label>AÑO DE AÑADIDO<select id="library-year-filter"><option value="all">Todos</option></select></label>
+                <label>ESTRELLAS<select id="library-rating-filter"><option value="all">Todas</option><option value="10">10 estrellas</option><option value="9">9 o más</option><option value="8">8 o más</option><option value="7">7 o más</option><option value="6">6 o más</option><option value="5">5 o más</option><option value="4">4 o más</option><option value="3">3 o más</option><option value="2">2 o más</option><option value="1">1 o más</option></select></label>
+                <label>GÉNERO<select id="library-genre-filter"><option value="all">Todos</option></select></label>
+                <label>ORDENAR<select id="library-sort"><option value="date-desc">Añadidas: recientes primero</option><option value="date-asc">Añadidas: antiguas primero</option><option value="title-asc">Título: A-Z</option><option value="title-desc">Título: Z-A</option><option value="rating-desc">Puntuación: mayor a menor</option><option value="rating-asc">Puntuación: menor a mayor</option></select></label>
+              </div>
+              <div id="entries-grid" class="entries-grid"></div>
+            </div>
+
+            <div id="view-manage" class="view hidden">
+              <div class="view-heading compact">
+                <div><div class="eyebrow">02 / MESA EDITORIAL</div><h1>Esperamos<br /><em>su reseña >.<</em></h1></div>
+                <div class="heading-copy">Registra un  recuerdo nuevo<br />o cambia uno antiguo.</div>
+              </div>
+              <div class="manager-layout">
+                <form id="entry-form" class="entry-form">
+                  <input type="hidden" id="entry-id" />
+                  <div class="form-title"><span class="tape-label">NUEVA ENTRADA / 001</span><span id="form-mode">MODO CREACIÓN</span></div>
+                  <label>Buscar título <input id="entry-title" required autocomplete="off" placeholder="Busca un videojuego, película o anime..." /><small class="field-hint">Empieza a escribir para explorar el catálogo</small></label>
+                  <div class="form-grid">
+                    <label>Tipo <select id="entry-type"><option value="game">Videojuego</option><option value="movie">Película</option><option value="anime">Anime</option></select></label>
+                    <label>Año <input id="entry-year" type="number" min="1900" max="2100" required value="2026" /></label>
+                  </div>
+                  <div class="form-grid">
+                    <label>Estado <select id="entry-status"><option value="completed">Completado</option><option value="dropped">Abandonado</option><option value="planned">Pendiente</option></select></label>
+                    <label>Finalizado <input id="entry-date" type="date" required value="2026-10-12" /></label>
+                  </div>
+                  <label>Géneros <select id="entry-genres" multiple size="4" aria-label="Géneros"></select><small class="field-hint">Puedes seleccionar varios con Ctrl o Cmd.</small></label>
+                  <div class="cover-search-row"><span id="cover-search-status">Elige un resultado para continuar.</span></div>
+                  <div id="cover-results" class="cover-results" aria-live="polite"></div>
+                  <label>Valoración <div class="rating-input" id="rating-input"></div></label>
+                  <label>Reseña <textarea id="entry-review" required placeholder="Decídete amiga..."></textarea></label>
+                  <label>URL de portada <input id="entry-cover" type="url" placeholder="https://..." /></label>
+                  <div class="form-actions"><button type="button" class="ghost-button" id="clear-form">LIMPIAR</button><button class="add-button" type="submit">GUARDAR ENTRADA ↗</button></div>
+                </form>
+                <div class="form-preview"><div class="eyebrow">VISTA PREVIA</div><div id="preview-card"></div></div>
+              </div>
+            </div>
+
+            <div id="view-profile" class="view hidden">
+              <div class="view-heading compact">
+                <div><div class="eyebrow">PERFIL / ARCHIVO PERSONAL</div><h1>Tu<br /><em>perfil.</em></h1></div>
+                <div class="heading-copy">Tu actividad y tus últimas entradas<br />en un solo lugar.</div>
+              </div>
+              <section class="profile-overview">
+                <div class="profile-hero">
+                  <div class="profile-large-avatar" id="profile-large-avatar">AV</div>
+                  <div class="profile-identity">
+                    <div class="profile-name-row"><h2 id="profile-page-name">Alex Vega</h2><button class="profile-edit-icon" id="edit-profile-name" type="button" aria-label="Editar nombre">✎</button></div>
+                    <div class="profile-image-row"><button class="profile-edit-icon" id="edit-profile-image" type="button" aria-label="Cambiar imagen de perfil">▣</button><span>Cambiar imagen</span><input id="profile-image-file" class="hidden" type="file" accept="image/*" /></div>
+                    <div id="profile-name-editor" class="profile-editor hidden"><input id="profile-page-name-input" type="text" maxlength="40" aria-label="Nombre de perfil" /><button id="save-profile-name" class="ghost-button" type="button">GUARDAR</button></div>
+                  </div>
+                </div>
+                <div class="profile-stats">
+                  <div class="stat-card dark"><span>TOTAL DE ENTRADAS</span><strong id="profile-total-count">00</strong></div>
+                  <div class="stat-card"><span>VIDEOJUEGOS</span><strong id="profile-game-count">00</strong></div>
+                  <div class="stat-card accent"><span>PELÍCULAS</span><strong id="profile-movie-count">00</strong></div>
+                  <div class="stat-card"><span>ANIME</span><strong id="profile-anime-count">00</strong></div>
+                </div>
+              </section>
+              <div class="profile-latest-heading"><div class="eyebrow">ACTIVIDAD RECIENTE</div><h2>Últimas entradas</h2></div>
+              <div id="profile-latest-grid" class="entries-grid"></div>
+            </div>
+
+            <div id="view-profiles" class="view hidden">
+              <div class="view-heading compact">
+                <div><div class="eyebrow">03 / HUELLA DIGITAL</div><h1>Perfiles<br /><em></em></h1></div>
+                <div class="heading-copy">.<br /></div>
+              </div>
+              <div class="profiles-grid">
+                <a class="profile-card steam" href="https://steamcommunity.com/id/albosleep/" target="_blank" rel="noreferrer"><span class="profile-number">01</span><div class="profile-logo">◉</div><div><h2>Steam</h2><p>@albosleep / Juegos O.O</p></div><b>↗</b></a>
+                <a class="profile-card letterboxd" href="https://letterboxd.com/AlboSleep/" target="_blank" rel="noreferrer"><span class="profile-number">02</span><div class="profile-logo">▰</div><div><h2>Letterboxd</h2><p>@albosleep / Películas :P</p></div><b>↗</b></a>
+                <a class="profile-card anilist" href="https://anilist.co/user/AlboSleep/" target="_blank" rel="noreferrer"><span class="profile-number">03</span><div class="profile-logo">A</div><div><h2>AniList</h2><p>@albosleep / Anime ^o^</p></div><b>↗</b></a>
+                <a class="profile-card youtube" href="https://www.youtube.com/@albosleep" target="_blank" rel="noreferrer"><span class="profile-number">04</span><div class="profile-logo">▶</div><div><h2>YouTube</h2><p>@albosleep / Vídeos :D</p></div><b>↗</b></a>
+
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+      <div id="toast" class="toast"></div>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
